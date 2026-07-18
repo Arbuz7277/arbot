@@ -1,0 +1,9 @@
+*.env
+logs/*
+*.log
+*.db
+__pycache__
+*.swp
+*swo
+*~
+venv/
