@@ -7,6 +7,7 @@ router = Router()
 
 @router.callback_query(lambda c: c.data == "about")
 async def about(callback: CallbackQuery) -> None:
+    await callback.answer()
     await callback.message.edit_text(
         "О боте\n\n"
         "это бот",
