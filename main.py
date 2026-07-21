@@ -23,10 +23,6 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-# Загрузка апи
-load_dotenv()
-api_bot = os.getenv("API_BOT")
-
 async def main(api_bot: str | None = None) -> None:
     """Точка входа бота."""
     if api_bot == None:
@@ -48,5 +44,5 @@ async def main(api_bot: str | None = None) -> None:
 
 
 if __name__ == '__main__':
-    asyncio.run(main(api_bot))
+    asyncio.run(main(config.api_bot))
 
