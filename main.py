@@ -4,6 +4,7 @@ from aiogram.filters import Command, CommandStart
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from handlers import include_handlers
 from callbacks import include_callbacks
+from middlewares import include_middlewares
 from config import config
 from dotenv import load_dotenv
 import logging
@@ -34,6 +35,7 @@ async def main(api_bot: str | None = None) -> None:
     
     include_handlers(dp)
     include_callbacks(dp)
+    include_middlewares(dp)
     
     try:
         logger.info("Bot running")
