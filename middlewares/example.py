@@ -8,10 +8,11 @@ class ExampleMiddleware(BaseMiddleware):
     async def __call__(
         self,
         handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
+        event: TelegramObject,
         data: Dict[str, Any]
     ) -> Any:
         # Any logic
 
         # Let's pass control on
-        return await handler(evenv, data)
+        return await handler(event, data)
 

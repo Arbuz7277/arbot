@@ -2,9 +2,11 @@
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command, CommandStart
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.exceptions import TelegramUnauthorizedError
 from handlers import include_handlers
 from callbacks import include_callbacks
 from middlewares import include_middlewares
+from database.database import db
 from config import config
 from dotenv import load_dotenv
 import logging
@@ -32,6 +34,7 @@ async def main(api_bot: str | None = None) -> None:
     
     bot = Bot(token=api_bot)
     dp = Dispatcher()
+    await db.connect()
     
     include_handlers(dp)
     include_callbacks(dp)
@@ -40,9 +43,11 @@ async def main(api_bot: str | None = None) -> None:
     try:
         logger.info("Bot running")
         await dp.start_polling(bot)
-    except Unauthorized:
+    except TelegramUnauthorizedError:
         logger.critical("API is not valid")
         sys.exit(1)
+    finally:
+        await db.close()
 
 
 if __name__ == '__main__':
